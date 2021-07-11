@@ -1,7 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head/>
+  <head>
+    <title>Google Snake Retime Tool</title>
+    
+    <style>
+      p {
+        position: relative;
+        font-size: 32;
+        text-align: center;
+        top: 0%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+
+    <p>Google Snake Fair Retimer</p>
+    <p style="text-align: left;font-size: 50;">Fairly Retimes Snake Runs to Match the In-Game Timer <br/>for runs where the IGT is not used.</p>
+  </head>
   <body>
-    <script src="timin.js"></script>
+    <br/><br/>
+    <style>
+      label, input, select {
+        position: relative;
+        top: 0%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+    
+    <label for="framerate">Video Framerate: </label>
+    <input type="text" id="framerate" name="framerate" size="10">
+
+    <br/><br/>
+
+    <label for="start">Start Frame Debug Info: </label>
+    <input type="text" id="start" name="start" size="10">
+
+    <br/><br/>
+
+    <select id="speed">
+      <option value="Standard">Standard</option>
+      <option value="Fast">Fast</option>
+      <option value="Slow">Slow</option>
+    </select>
+
+    <br/><br/>
+    <button id="copy_mod">Copy Mod Message</button>
+    <br/>
+    <button id="copy_ver">Copy Verifier Message (Modesty c;)</button>
   </body>
 </html>
