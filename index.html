@@ -10,7 +10,7 @@
   <body>
     <br/><br/>
     <style>
-      label, input, select {
+      div {
         position: relative;
         top: 0%;
         margin-left: auto;
@@ -18,25 +18,27 @@
       }
     </style>
     
-    <label for="framerate">Video Framerate: </label>
-    <input type="text" id="framerate" name="framerate" size="10">
+    <div>
+      <label for="framerate">Video Framerate: </label>
+      <input type="text" id="framerate" name="framerate" size="10">
 
-    <br/><br/>
+      <br/><br/>
 
-    <label for="start">Start Frame Debug Info: </label>
-    <input type="text" id="start" name="start" size="10">
+      <label for="start">Start Frame Debug Info: </label>
+      <input type="text" id="start" name="start" size="10">
 
-    <br/><br/>
+      <br/><br/>
 
-    <select id="speed">
-      <option value="Standard">Standard</option>
-      <option value="Fast">Fast</option>
-      <option value="Slow">Slow</option>
-    </select>
+      <select id="speed">
+        <option value="Standard">Standard</option>
+        <option value="Fast">Fast</option>
+        <option value="Slow">Slow</option>
+      </select>
 
-    <br/><br/>
-    <button id="copy_mod">Copy Mod Message</button>
-    <br/>
-    <button id="copy_ver">Copy Verifier Message (Modesty c;)</button>
+      <br/><br/>
+      <button id="copy_mod">Copy Mod Message</button>
+      <br/>
+      <button id="copy_ver">Copy Verifier Message (Modesty c;)</button>
+    </div>
   </body>
 </html>
