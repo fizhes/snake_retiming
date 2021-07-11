@@ -47,7 +47,7 @@ function cool_cat_function() {
   const end_frame_debug = document.querySelector('#end').value || '{"cmt": "0"}';
   speed = document.querySelector('#speed').value;
 
-  console.log(start_frame_debug, end_frame_debug);
+  // console.log(start_frame_debug, end_frame_debug);
 
   let tick_length;
   if(speed === 'Standard')
