@@ -4,25 +4,36 @@
     <title>Google Snake Retime Tool</title>
     
 
-    <p style="position: relative;font-size: 100px;text-align: center;top: 0%;margin-left: auto;margin-right: auto;">Google Snake Fair Retimer</p>
-    <p style="position: relative;font-size: 50px;text-align: center;top: 0%;margin-left: auto;margin-right: auto;">Fairly Retimes Snake Runs to Match the In-Game Timer <br/>for runs where the IGT is not used.</p>
+    <p style="font-family: Consolas;font-weight:bold;position: relative;text-align: center;top: 0%;margin-left: auto;margin-right: auto;">
+      <span style="font-size: 100px;">Google Snake Fair Retimer</span><br/>
+      <span style="font-weight:normal;font-size: 50px;">
+        Fairly Retimes Snake Runs to Match the In-Game Timer<br/>
+        for runs wherein the IGT is not used.
+      </span>
+    </p>
   </head>
   <body>
-    <div style="font-size: 50px;width: 600px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:100px;">
+    <div style="font-family: Segoe UI;width: 600px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:150px;">
       
-      <div style="font-size: 50px;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:100px;">
+      <div style="font-family: Segoe UI;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:100px;">
         <label for="framerate">Video Framerate: </label>
         <input type="text" id="framerate" name="framerate" size="10">
       </div>
       
 
-      <div style="font-size: 50px;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:10px;">
+      <div style="font-family: Segoe UI;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:10px;">
         <label for="start">Start Frame Debug Info: </label>
         <input type="text" id="start" name="start" size="10">
       </div>
 
+      <div style="font-family: Segoe UI;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:10px;">
+        <label for="end">End Frame Debug Info: </label>
+        <input type="text" id="end" name="end" size="10">
+      </div>
 
-      <div style="font-size: 50px;width: 150px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:10px;">
+
+      <div style="font-family: Segoe UI;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:10px;">
+        Speed:
         <select id="speed">
           <option value="Standard">Standard</option>
           <option value="Fast">Fast</option>
@@ -31,9 +42,23 @@
       </div>
 
       
-      <div style="font-size: 50px;width: 150px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:10px;">
+      <div style="font-family: Segoe UI;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:10px;">
+        <button id="calculate">Calculate Time</button>
         <button id="copy_mod">Copy Mod Note</button>
       </div>
+
+      <div style="font-family: Segoe UI;height: 0px;width: 300px;position:relative;top:50%;transform:translate(0%,-50%);margin-left:auto;margin-right:auto;margin-top:100px;">
+        Mod Note Format:<br/>
+        <textarea id="mod_note_edit" cols="25" rows="7" style="font-family: Segoe UI;font-size: 16px;">
+Mod note:\nRun starts at [start] and ends at [end] (at [fps] FPS), for a real time of [real_time].\nAt [speed] Speed, in-game time is [game_time].\nRetimed using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).
+        </textarea>
+      </div>
+
+      
     </div>
+    <script src="timin.js"></script>
+    <div style="font-family: Segoe UI;height: 15px;width: 300px;position: relative;top:-200px;transform:translate(0%,-50%);margin-left: auto;margin-right: auto;" id="real_time"></div>
+    <div style="font-family: Segoe UI;height: 0px;width: 300px;position: relative;top:-200px;transform:translate(0%,-50%);margin-left: auto;margin-right: auto;" id="game_time"></div>
+      
   </body>
 </html>

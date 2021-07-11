@@ -1,83 +1,53 @@
-const add_option = function(select, option) {
-  let _option = document.createElement('option');
-  _option.value = option;
-  _option.innerHTML = option;
-  select.options.add(_option);
+let framerate = 60, speed = 'Standard', measured_time = 0, adjusted_time = 0, sft = 0, eft = 0;
+
+
+localStorage.fishes_mod_message = localStorage.fishes_mod_message || 'Mod note:\nRun starts at [start] and ends at [end] (at [fps] FPS), for a real time of [real_time].\nAt [speed] Speed, in-game time is [game_time].\nRetimed using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).';
+
+const ta = document.getElementById('mod_note_edit');
+ta.value = localStorage.fishes_mod_message;
+ta.onchange = function() {
+  localStorage.fishes_mod_message = ta.value;
 };
 
-document.body.innerHTML = document.head.innerHTML = '';
-
-
-let label_framerate = document.createElement('label');
-label_framerate.innerHTML = 'Video Framerate: ';
-label_framerate.for = 'framerate';
-let input_framerate = document.createElement('input');
-input_framerate.type = 'text';
-input_framerate.id = input_framerate.name = 'framerate';
-input_framerate.size = '10';
-document.body.appendChild(label_framerate);
-document.body.appendChild(input_framerate);
-
-document.body.appendChild(document.createElement('br'));
-document.body.appendChild(document.createElement('br'));
-
-
-let label_start = document.createElement('label');
-label_start.innerHTML = 'Start Frame Debug Info: ';
-label_start.for = 'start';
-let input_start = document.createElement('input');
-input_start.type = 'text';
-input_start.id = input_start.name = 'start';
-input_start.size = '10';
-document.body.appendChild(label_start);
-document.body.appendChild(input_start);
-
-document.body.appendChild(document.createElement('br'));
-document.body.appendChild(document.createElement('br'));
-
-
-let label_end = document.createElement('label');
-label_end.innerHTML = 'End Frame Debug Info: ';
-label_start.for = 'end';
-let input_end = document.createElement('input');
-input_end.type = 'text';
-input_end.size = '10';
-input_end.id = input_end.name = 'end';
-document.body.appendChild(label_end);
-document.body.appendChild(input_end);
-
-document.body.appendChild(document.createElement('br'));
-document.body.appendChild(document.createElement('br'));
-
-
-
-document.body.innerHTML += 'Speed: ';
-let dropdown_speed = document.createElement('select');
-dropdown_speed.id = 'speed';
-add_option(dropdown_speed, 'Standard');
-add_option(dropdown_speed, 'Fast');
-add_option(dropdown_speed, 'Slow');
-document.body.appendChild(dropdown_speed);
-
-
-document.body.appendChild(document.createElement('br'));
-document.body.appendChild(document.createElement('br'));
-
-let output1 = document.createElement('div');
-let output2 = document.createElement('div');
-
-let measured_time = 0, adjusted_time = 0;
-let sft = 0, eft = 0;
-let framerate = 60;
-let speed = 'Standard';
-
-let button = document.createElement('button');
-button.innerHTML = 'Calculate';
+let button = document.getElementById('copy_mod');
 button.onclick = function() {
+  cool_cat_function();
+  navigator.clipboard.writeText(
+    localStorage.fishes_mod_message.replace(
+      '[start]',
+      format_time(sft)
+    ).replace(
+      '[end]',
+      format_time(eft)
+    ).replace(
+      '[fps]',
+      framerate
+    ).replace(
+      '[speed]',
+      speed
+    ).replace(
+      '[real_time]',
+      format_time(measured_time)
+    ).replace(
+      '[game_time]',
+      format_time(adjusted_time)
+    ).replaceAll(
+      '\\n',
+      '\n'
+    )
+  );
+};
+
+document.getElementById('calculate').onclick = cool_cat_function;
+
+
+function cool_cat_function() {
   framerate = (+document.querySelector('#framerate').value) || 60;
-  const start_frame_debug = document.querySelector('#start').value || '{\'cmt\': \'0\'}';
-  const end_frame_debug = document.querySelector('#end').value || '{\'cmt\': \'0\'}';
+  const start_frame_debug = document.querySelector('#start').value || '{"cmt": "0"}';
+  const end_frame_debug = document.querySelector('#end').value || '{"cmt": "0"}';
   speed = document.querySelector('#speed').value;
+
+  console.log(start_frame_debug, end_frame_debug);
 
   let tick_length;
   if(speed === 'Standard')
@@ -93,28 +63,15 @@ button.onclick = function() {
   measured_time = eft - sft;
   
   const ticks = Math.round(measured_time / tick_length);
-  console.log(ticks);
+  // console.log(ticks);
 
   adjusted_time = ticks * tick_length;
 
 
+  document.getElementById('real_time').innerHTML = 'Real Time: ' + format_time(measured_time);
+  document.getElementById('game_time').innerHTML = 'Game Time: ' + format_time(adjusted_time);
   
-  output1.innerHTML = 'Real Time:    ' + format_time(measured_time);
-  output2.innerHTML = 'In-Game Time: ' + format_time(adjusted_time);
 };
-document.body.appendChild(button);
-
-let copy_button = document.createElement('button');
-copy_button.innerHTML = 'Copy Message';
-copy_button.onclick = function() {
-  navigator.clipboard.writeText(
-    `Run starts at ${format_time(sft)} and ends at ${format_time(eft)} (at ${framerate} FPS), for a real time of ${format_time(measured_time)}.\nAt ${speed} Speed, in-game time is ${format_time(adjusted_time)}.`
-  );
-};
-document.body.appendChild(copy_button);
-
-document.body.appendChild(output1);
-document.body.appendChild(output2);
 
 const format_time = function(t) {
   let minutes = ~~(t / 60);
