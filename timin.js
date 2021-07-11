@@ -57,8 +57,8 @@ function cool_cat_function() {
   else
     tick_length = 0.17955;
   
-  sft = Math.round(framerate * +JSON.parse(start_frame_debug)['cmt']) / framerate;
-  eft = Math.round(framerate * +JSON.parse(end_frame_debug)['cmt']) / framerate;
+  sft = Math.floor(framerate * +JSON.parse(start_frame_debug)['cmt']) / framerate;
+  eft = Math.floor(framerate * +JSON.parse(end_frame_debug)['cmt']) / framerate;
 
   measured_time = eft - sft;
   
@@ -68,15 +68,15 @@ function cool_cat_function() {
   adjusted_time = ticks * tick_length;
 
 
-  document.getElementById('real_time').innerHTML = 'Real Time: ' + format_time(measured_time);
-  document.getElementById('game_time').innerHTML = 'Game Time: ' + format_time(adjusted_time);
+  document.getElementById('real_time').innerHTML = 'Real Time: ' + format_time(measured_time, false);
+  document.getElementById('game_time').innerHTML = 'Game Time: ' + format_time(adjusted_time, true);
   
 };
 
-const format_time = function(t) {
+const format_time = function(t, truncate) {
   let minutes = ~~(t / 60);
   let seconds = ~~(t % 60);
   let m       =    t % 1; 
 
-  return minutes + ':' + ('' + seconds).padStart(2, '0') + '.' + ('' + m).replace('0.', '').padEnd(3, '0').substring(0, 3);
+  return minutes + ':' + ('' + seconds).padStart(2, '0') + '.' + (truncate ? m.toFixed(4).substring(2, 5) : m.toFixed(3).substring(2, 5));
 }
