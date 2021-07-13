@@ -2,6 +2,8 @@ let framerate = 60, speed = 'Standard', measured_time = 0, adjusted_time = 0, sf
 
 
 localStorage.fishes_mod_message = localStorage.fishes_mod_message || 'Mod note:\nRun starts at {start} and ends at {end} (at {fps} FPS), for a real time of {real_time}.\nAt {speed} Speed, in-game time is {game_time}.\nRetimed using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).';
+if(localStorage.fishes_mod_message.indexOf('[game_time]') !== -1)
+  localStorage.fishes_mod_message = 'Mod note:\nRun starts at {start} and ends at {end} (at {fps} FPS), for a real time of {real_time}.\nAt {speed} Speed, in-game time is {game_time}.\nRetimed using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).';
 
 const ta = document.getElementById('mod_note_edit');
 ta.value = localStorage.fishes_mod_message;
