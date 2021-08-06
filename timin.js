@@ -29,10 +29,10 @@ button.onclick = function() {
       speed
     ).replace(
       '{real_time}',
-      format_time(measured_time)
+      format_time(measured_time, false)
     ).replace(
       '{game_time}',
-      format_time(adjusted_time)
+      format_time(adjusted_time, true)
     ).replaceAll(
       '\\n',
       '\n'
@@ -81,4 +81,4 @@ const format_time = function(t, truncate) {
   let m       =    t % 1; 
 
   return minutes + ':' + ('' + seconds).padStart(2, '0') + '.' + (truncate ? m.toFixed(4).substring(2, 5) : m.toFixed(3).substring(2, 5));
-}
+};
