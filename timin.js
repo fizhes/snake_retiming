@@ -82,3 +82,9 @@ const format_time = function(t, truncate) {
 
   return minutes + ':' + ('' + seconds).padStart(2, '0') + '.' + (truncate ? m.toFixed(4).substring(2, 5) : m.toFixed(3).substring(2, 5));
 };
+
+
+[...document.getElementsByClassName('baaaa')].forEach(e => e.addEventListener('auxclick', function(evt) {
+  if(evt.button === 1)
+    e.onclick();
+}));
