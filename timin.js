@@ -1,9 +1,12 @@
-let framerate = 60, speed = 'Standard', measured_time = 0, adjusted_time = 0, sft = 0, eft = 0;
+let framerate = 60, speed = 'Standard', measured_time = 0, adjusted_time = 0;
 
 
 localStorage.fishes_mod_message = localStorage.fishes_mod_message || 'Mod note:\nRun starts at {start} and ends at {end} (at {fps} FPS), for a real time of {real_time}.\nAt {speed} Speed, in-game time is {game_time}.\nRetimed using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).';
-if(localStorage.fishes_mod_message.indexOf('[game_time]') !== -1)
-  localStorage.fishes_mod_message = 'Mod note:\nRun starts at {start} and ends at {end} (at {fps} FPS), for a real time of {real_time}.\nAt {speed} Speed, in-game time is {game_time}.\nRetimed using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).';
+if(
+  localStorage.fishes_mod_message.indexOf('[game_time]') !== -1 ||
+  localStorage.fishes_mod_message === 'Mod note:\nRun starts at {start} and ends at {end} (at {fps} FPS), for a real time of {real_time}.\nAt {speed} Speed, in-game time is {game_time}.\nRetimed using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).'
+)
+  localStorage.fishes_mod_message = 'Mod note:\nRetimed to {game_time} using [Google Snake Retime Tool](https://fizhes.github.io/snake_retiming/).';
 
 const ta = document.getElementById('mod_note_edit');
 ta.value = localStorage.fishes_mod_message;
@@ -16,12 +19,6 @@ button.onclick = function() {
   cool_cat_function();
   navigator.clipboard.writeText(
     localStorage.fishes_mod_message.replace(
-      '{start}',
-      format_time(sft)
-    ).replace(
-      '{end}',
-      format_time(eft)
-    ).replace(
       '{fps}',
       framerate
     ).replace(
@@ -59,15 +56,12 @@ function cool_cat_function() {
   else
     tick_length = 0.17955;
   
-  sft = Math.floor(framerate * +JSON.parse(start_frame_debug)['cmt']) / framerate;
-  eft = Math.floor(framerate * +JSON.parse(end_frame_debug)['cmt']) / framerate;
-
-  measured_time = eft - sft;
+  measured_time = Math.round((
+    +JSON.parse(end_frame_debug)['cmt'] -
+    +JSON.parse(start_frame_debug)['cmt']
+  ) * framerate) / framerate;
   
-  const ticks = Math.round(measured_time / tick_length);
-  // console.log(ticks);
-
-  adjusted_time = ticks * tick_length;
+  adjusted_time = Math.round(measured_time / tick_length) * tick_length;
 
 
   document.getElementById('real_time').innerHTML = 'Real Time: ' + format_time(measured_time, false);
